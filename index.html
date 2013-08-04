@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Text Pad</title>
+<link rel="stylesheet" type="text/css" href="normalize.css">
+<link href='http://fonts.googleapis.com/css?family=Josefin+Slab:600' rel='stylesheet' type='text/css'>
+<style type="text/css">
+	html, body {
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.text {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		font-size: 45px;
+		color: white;
+		font-family: 'Josefin Slab', serif;
+	}
+</style>
+</head>
+<body>
+  <canvas width="200px" width="200px"></canvas>
+  <span contenteditable="true" class="text">Bob!</span>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <script>
+/*Use a decent font via web fonts*/
+
+  	var canvas, context, width, height, $text;
+
+	width = $("body").width();
+	height = $("body").height();
+	$("canvas").prop("width", width);
+	$("canvas").prop("height", height);
+
+	$text = $(".text");
+
+	canvas = document.querySelector("canvas");
+	context = canvas.getContext("2d");
+	requestAnimationFrame(render);
+
+	var start = performance.now();
+
+	function rgb (r, g, b) {
+	  return "rgb(" + r + "," + g + "," + b + ")";
+	}
+
+	var way = true;
+
+	function render (timestamp) {
+	  var delta;
+	  
+	  delta = Math.floor((Math.sin((timestamp - start) / 1000) + 1) / 2 * 255);
+	  
+	  context.fillStyle = rgb(133, 200, delta);
+	  context.fillRect(0, 0, width, height);
+	  
+	  requestAnimationFrame(render);
+	}
+
+	function adjustTextPosition (ev) {
+		var textWidth, textHeight;
+
+		textWidth = $text.width();
+		textHeight = $text.height();
+
+		if (textHeight > height || textWidth > width) {
+			if (ev instanceof $.Event) {
+				ev.preventDefault();
+			}
+		}
+
+		$text.css({
+			"margin-left" : -(textWidth / 2),
+			"margin-top" : -(textHeight / 2)
+		});
+	}
+
+	function changeTextTo (text, doFocus) {
+		if (typeof text === "string") {
+			$text.html(text);
+			if (doFocus) {
+				$text.focus();
+			}
+		}
+		adjustTextPosition();
+		localStorage.setItem("text-pad", $text.html());
+	}
+
+	changeTextTo(localStorage.getItem("text-pad"), true);
+
+	$text.on("input", changeTextTo);
+	$("canvas").on("click", function() {
+		if ($text.text().length === 0) {
+			changeTextTo("Here!", true);
+		} else if ($text.text().length < 3) {
+			$text.focus();
+		}
+	});
+  </script>
+</body>
+</html>
