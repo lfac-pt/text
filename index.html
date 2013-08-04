@@ -23,9 +23,11 @@
 </head>
 <body>
   <canvas width="200px" width="200px"></canvas>
-  <span contenteditable="true" class="text">Bob!</span>
+  <span contenteditable="true" class="text mousetrap">Bob!</span>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <script src="mousetrap.min.js"></script>
+  <script src="underscore.js"></script>
   <script>
 /*Use a decent font via web fonts*/
 
@@ -100,6 +102,30 @@
 			$text.focus();
 		}
 	});
+
+	Mousetrap.bind('command+enter', function(e) {
+	    tryToRun();
+	    return false;
+	});
+	Mousetrap.bind('ctrl+enter', function(e) {
+		tryToRun();	    
+	    return false;
+	});
+
+	function tryToRun () {
+		var code, result;
+
+		code = $text.text();
+
+		try {
+			result = eval(code);
+		} catch (e) {
+			console.error(e.stack);
+			result = "Opps :/";
+		}
+
+		changeTextTo($text.html() + _.escape(" = " + result));
+	}
   </script>
 </body>
 </html>
