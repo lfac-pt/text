@@ -41,7 +41,6 @@
   <script>
   /*
 	- When in preview mode, if any key is pressed go to edit mode
-	- Adds a command to open web pages and/or search googe
   */
 
   	var canvas, context, width, height, $text, $textPreview;
@@ -165,7 +164,7 @@
 			result = "Opps :(";
 		}
 
-		changeTextTo($text.val() + _.escape(" = " + result));
+		changeTextTo($text.val() + _.escape(" == " + result));
 	}
 
 	function showPreview () {
