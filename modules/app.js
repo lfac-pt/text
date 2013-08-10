@@ -5,7 +5,6 @@
 
     /*
 	- When in preview mode, if any key is pressed go to edit mode
-	- Add a clone() function to the global scope (hum, how to handle only having one domain?)
 	- Change the page title to the first words of the text
 	- Make de favicon change color?
 	- Support ES6 sintax!
@@ -24,9 +23,9 @@
 
 	canvas = document.querySelector("canvas");
 	context = canvas.getContext("2d");
-	requestAnimationFrame(render);
+	window.requestAnimationFrame(render);
 
-	start = performance.now();
+	start = window.performance.now();
 
 	function rgb(r, g, b) {
         return "rgb(" + r + "," + g + "," + b + ")";
@@ -42,7 +41,7 @@
         context.fillStyle = rgb(133, 200, delta);
         context.fillRect(0, 0, width, height);
         
-        requestAnimationFrame(render);
+        window.requestAnimationFrame(render);
 	}
 
 	function adjustTextPosition(ev) {

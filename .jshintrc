@@ -22,7 +22,6 @@
   "white" : true,
   "onevar" : true,
   "globals": {
-    "feedzai" : false,
     "define" : false,
     "require" : false
   }
