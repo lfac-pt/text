@@ -1,7 +1,31 @@
-(function () {
+(function (_) {
     "use strict";
     
-    /*globals Mousetrap, markdown, $, _*/
+    require.config({
+        baseUrl: "modules"
+    });
+    
+    _.mixin({
+        const : function (value) {
+            return function () {
+                return value;
+            };
+        }
+    });
+    
+    define("jQuery", [], _.const(window.jQuery));
+    define("underscore", [], _.const(window._));
+    define("Mousetrap", [], _.const(window.Mousetrap));
+    define("markdown", [], _.const(window.markdown));
+}(window._));
+
+require([
+    "jQuery",
+    "underscore",
+    "Mousetrap",
+    "markdown",
+], function ($, _, Mousetrap, markdown) {
+    "use strict";
 
     /*
 	- When in preview mode, if any key is pressed go to edit mode
@@ -154,5 +178,5 @@
 		adjustTextPosition();
 	}
 
-	$textPreview.click(showEditor);
-})();
+	$textPreview.click(showEditor);    
+});
