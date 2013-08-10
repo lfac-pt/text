@@ -3,7 +3,7 @@
 <head>
 <meta charset=utf-8 />
 <title>Text Pad</title>
-<link rel="stylesheet" type="text/css" href="normalize.css">
+<link rel="stylesheet" type="text/css" href="vendor/normalize.css">
 <link href='http://fonts.googleapis.com/css?family=Josefin+Slab:400,600' rel='stylesheet' type='text/css'>
 <style type="text/css">
 	html, body {
@@ -35,9 +35,9 @@
   <div class="textPreview"></div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-  <script src="mousetrap.min.js"></script>
-  <script src="underscore.js"></script>
-  <script src="markdown-js-0.5.0/lib/markdown.js"></script>
+  <script src="vendor/mousetrap.min.js"></script>
+  <script src="vendor/underscore.js"></script>
+  <script src="vendor/markdown-js-0.5.0/lib/markdown.js"></script>
   <script>
   /*
 	- When in preview mode, if any key is pressed go to edit mode
@@ -45,6 +45,7 @@
 	- Change the page title to the first words of the text
 	- Make de favicon change color?
 	- Support ES6 sintax!
+	- Arranjar um parser markdown github flavor
   */
 
   	var canvas, context, width, height, $text, $textPreview;
