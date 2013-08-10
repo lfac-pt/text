@@ -1,10 +1,12 @@
 (function (_) {
     "use strict";
     
+    //Set up the requirejs configuration
     require.config({
         baseUrl: "modules"
     });
     
+    //Set up the underscore mixins
     _.mixin({
         const : function (value) {
             return function () {
@@ -13,10 +15,10 @@
         }
     });
     
-    define("jQuery", [], _.const(window.jQuery));
-    define("underscore", [], _.const(window._));
-    define("Mousetrap", [], _.const(window.Mousetrap));
-    define("markdown", [], _.const(window.markdown));
+    //Do the shims manually
+    _.each(["jQuery", "underscore", "Mousetrap", "markdown"], function (libraryName) {
+        define(libraryName, [], _.const(window[libraryName]));
+    });
 }(window._));
 
 require([
@@ -24,7 +26,8 @@ require([
     "underscore",
     "Mousetrap",
     "markdown",
-], function ($, _, Mousetrap, markdown) {
+    "background/renderer"
+], function ($, _, Mousetrap, markdown, renderer) {
     "use strict";
 
     /*
@@ -35,7 +38,7 @@ require([
 	- Arranjar um parser markdown github flavor
     */
 
-    var canvas, context, width, height, $text, $textPreview, way, start;
+    var canvas, context, width, height, $text, $textPreview, start;
 
 	width = $("body").width();
 	height = $("body").height();
@@ -47,25 +50,14 @@ require([
 
 	canvas = document.querySelector("canvas");
 	context = canvas.getContext("2d");
-	window.requestAnimationFrame(render);
+	window.requestAnimationFrame(renderTick);
 
 	start = window.performance.now();
 
-	function rgb(r, g, b) {
-        return "rgb(" + r + "," + g + "," + b + ")";
-	}
-
-	way = true;
-
-	function render(timestamp) {
-        var delta;
+	function renderTick(timestamp) {
+        renderer(context, width, height, start, timestamp);
         
-        delta = Math.floor((Math.sin((timestamp - start) / 1000) + 1) / 2 * 255);
-        
-        context.fillStyle = rgb(133, 200, delta);
-        context.fillRect(0, 0, width, height);
-        
-        window.requestAnimationFrame(render);
+        window.requestAnimationFrame(renderTick);
 	}
 
 	function adjustTextPosition(ev) {
