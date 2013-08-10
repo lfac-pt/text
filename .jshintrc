@@ -1,1 +1,29 @@
-{"undef":true,"unused":true,"curly":true,"indent":4,"devel":true,"laxcasebreak":true,"globals":{}}
+{
+  "bitwise" : true,
+  "curly" : true,
+  "eqeqeq" : true,
+  "forin" : true,
+  "immed" : true,
+  "indent" : 4,
+  "latedef": true,
+  "newcap": true,
+  "noarg" : true,
+  "noempty" : true,
+  "nonew" : true,
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "trailing": true,
+  "maxlen": 120,
+  "es5" : true,
+  "browser" : true,
+  "devel" : true,
+  "node" : true,
+  "white" : true,
+  "onevar" : true,
+  "globals": {
+    "feedzai" : false,
+    "define" : false,
+    "require" : false
+  }
+}
