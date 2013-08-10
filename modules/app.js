@@ -26,8 +26,8 @@ require([
     "underscore",
     "Mousetrap",
     "markdown",
-    "background/renderer"
-], function ($, _, Mousetrap, markdown, renderer) {
+    "background/backgroundManager"
+], function ($, _, Mousetrap, markdown, backgroundManager) {
     "use strict";
 
     /*
@@ -38,27 +38,15 @@ require([
 	- Arranjar um parser markdown github flavor
     */
 
-    var canvas, context, width, height, $text, $textPreview, start;
+    var width, height, $text, $textPreview;
 
 	width = $("body").width();
 	height = $("body").height();
-	$("canvas").prop("width", width);
-	$("canvas").prop("height", height);
+    
+    backgroundManager.initialize(document.querySelector("canvas"), width, height);
 
 	$text = $(".text");
 	$textPreview = $(".textPreview");
-
-	canvas = document.querySelector("canvas");
-	context = canvas.getContext("2d");
-	window.requestAnimationFrame(renderTick);
-
-	start = window.performance.now();
-
-	function renderTick(timestamp) {
-        renderer(context, width, height, start, timestamp);
-        
-        window.requestAnimationFrame(renderTick);
-	}
 
 	function adjustTextPosition(ev) {
 		var textWidth, textHeight;
