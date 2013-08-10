@@ -12,7 +12,7 @@
 	- Arranjar um parser markdown github flavor
     */
 
-    var canvas, context, width, height, $text, $textPreview, way;
+    var canvas, context, width, height, $text, $textPreview, way, start;
 
 	width = $("body").width();
 	height = $("body").height();
@@ -26,15 +26,15 @@
 	context = canvas.getContext("2d");
 	requestAnimationFrame(render);
 
-	var start = performance.now();
+	start = performance.now();
 
-	function rgb (r, g, b) {
+	function rgb(r, g, b) {
         return "rgb(" + r + "," + g + "," + b + ")";
 	}
 
 	way = true;
 
-	function render (timestamp) {
+	function render(timestamp) {
         var delta;
         
         delta = Math.floor((Math.sin((timestamp - start) / 1000) + 1) / 2 * 255);
@@ -45,7 +45,7 @@
         requestAnimationFrame(render);
 	}
 
-	function adjustTextPosition (ev) {
+	function adjustTextPosition(ev) {
 		var textWidth, textHeight;
 
 		if ($text.is(":visible") !== true) {
@@ -68,7 +68,7 @@
 			"margin-top" : -(textHeight / 2) - 3
 		});
 	}
-	function adjustTextPreviewPosition (ev) {
+	function adjustTextPreviewPosition(ev) {
 		var textWidth, textHeight;
 
 		textWidth = $textPreview.width();
@@ -86,7 +86,7 @@
 		});
 	}
 
-	function changeTextTo (text, doFocus) {
+	function changeTextTo(text, doFocus) {
 		if (typeof text === "string") {
 			$text.val(text);
 			if (doFocus) {
@@ -101,27 +101,27 @@
 	showPreview();
 
 	$text.on("input", changeTextTo);
-	$("canvas").on("click", function() {
+	$("canvas").on("click", function () {
 		if ($text.val().length === 0) {
 			changeTextTo("Here!", true);
 		}
 		showPreview();
 	});
 
-	Mousetrap.bind('command+enter', function() {
+	Mousetrap.bind('command+enter', function () {
         tryToRun();
         return false;
 	});
-	Mousetrap.bind('ctrl+enter', function() {
+	Mousetrap.bind('ctrl+enter', function () {
         tryToRun();
         return false;
 	});
-	Mousetrap.bind('esc', function() {
+	Mousetrap.bind('esc', function () {
 		showPreview();
         return false;
 	});
 
-	function tryToRun () {
+	function tryToRun() {
 		var code, result;
 
 		code = $text.val();
@@ -136,7 +136,7 @@
 		changeTextTo($text.val() + _.escape(" == " + result));
 	}
 
-	function showPreview () {
+	function showPreview() {
 		$text.hide();
 		$textPreview.html(markdown.toHTML($text.val())).show();
 		adjustTextPreviewPosition();
@@ -144,12 +144,12 @@
 
 	$text.on("focusout", showPreview);
 
-	$text.on("focusin", function() {
+	$text.on("focusin", function () {
 		$textPreview.hide();
 		$text.show();
 	});
 
-	function showEditor () {
+	function showEditor() {
 		$textPreview.hide();
 		$text.show().focus();
 		adjustTextPosition();
