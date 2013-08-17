@@ -16,7 +16,7 @@
     });
 
     //Do the shims manually
-    _.each(["jQuery", "underscore", "Mousetrap", "markdown"], function (libraryName) {
+    _.each(["jQuery", "underscore", "Mousetrap", "markdown", "ace"], function (libraryName) {
         define(libraryName, [], _.const(window[libraryName]));
     });
 }(window._));
