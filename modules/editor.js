@@ -3,7 +3,8 @@ define([
     "underscore",
     "Mousetrap",
     "markdown",
-], function ($, _, Mousetrap, markdown) {
+    "ds"
+], function ($, _, Mousetrap, markdown, ds) {
     "use strict";
 
     return {
@@ -62,10 +63,10 @@ define([
                     }
                 }
                 adjustTextPosition();
-                localStorage.setItem("text-pad", $text.val());
+                ds.save($text.val());
             }
 
-            changeTextTo(localStorage.getItem("text-pad"), true);
+            changeTextTo(ds.load(), true);
             showPreview();
 
             $text.on("input", changeTextTo);
