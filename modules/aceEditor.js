@@ -16,13 +16,17 @@ define([
             aceEditor.renderer.setHScrollBarAlwaysVisible(false);
             aceEditor.getSession().setMode("ace/mode/markdown");
 
-            $("#editor").css("left", (width / 2 - 400) + "px");
+            $(".pleaseCenterMe").css("left", (width / 2 - 400) + "px");
 
             aceEditor.setValue(ds.load());
 
             aceEditor.getSession().on('change', function () {
                 ds.save(aceEditor.getValue());
             });
+
+            aceEditor.focus();
+
+            return aceEditor;
         }
     };
 });

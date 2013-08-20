@@ -3,37 +3,25 @@ html, body {
     overflow: hidden;
 }
 
-.text, .textPreview {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 45px;
-    color: white;
-    font-family: 'Josefin Slab', serif;
-    background: none;
-    width: 80%;
-    display: none;
-}
-.text {
-    resize: none;
-}
-.text {
-    display: none;
-}
-
-#editor {
+.textPreview, #editor {
     position: absolute;
     top: 10px;
     left: 0;
     bottom: 0;
     width: 800px;
 
-    background-color: transparent;
-    border-right: dashed 4px rgba(0, 0, 0, 0.5);
-
     font-family: 'Droid Sans Mono', sans-serif;
     font-size: 45px;
     color: white;
+}
+
+.textPreview {
+    display: none;
+}
+
+#editor {
+    background-color: transparent;
+    border-right: dashed 4px rgba(0, 0, 0, 0.5);
 }
 
 .ace_scrollbar, .ace_print-margin-layer {

@@ -16,13 +16,24 @@
     });
 
     //Do the shims manually
-    _.each(["jQuery", "underscore", "Mousetrap", "markdown", "ace"], function (libraryName) {
+    _.each(["jQuery", "underscore", "Mousetrap", "marked", "ace"], function (libraryName) {
         define(libraryName, [], _.const(window[libraryName]));
     });
 }(window._));
 
 require([
-    "app"
-], function (app) {
+    "app",
+    "marked"
+], function (app, marked) {
+    "use strict";
 
+    marked.setOptions({
+        gfm: true,
+        tables: true,
+        breaks: true,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
+    });
 });
