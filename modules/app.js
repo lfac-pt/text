@@ -1,10 +1,9 @@
 define([
     "jQuery",
     "underscore",
-    "ace",
     "background/backgroundManager",
-    "editor",
-], function ($, _, ace, backgroundManager, editor) {
+    "aceEditor"
+], function ($, _, backgroundManager, aceEditor) {
     "use strict";
 
     /*
@@ -15,19 +14,11 @@ define([
 	- Arranjar um parser markdown github flavor
     */
 
-    var width, height, aceEditor;
+    var width, height;
 
 	width = $("body").width();
 	height = $("body").height();
 
     backgroundManager.initialize(document.querySelector("canvas"), width, height);
-    //editor.initialize();
-
-    window.aceEditor = aceEditor = ace.edit("editor");
-    aceEditor.renderer.setShowGutter(false);
-    aceEditor.setHighlightActiveLine(false);
-    aceEditor.renderer.setHScrollBarAlwaysVisible(false);
-    aceEditor.getSession().setMode("ace/mode/markdown");
-
-    $("#editor").css("left", (width / 2 - 400) + "px");
+    aceEditor.initialize(width, height);
 });
