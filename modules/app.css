@@ -29,7 +29,11 @@ html, body {
     width: 800px;
 
     background-color: transparent;
-    border-right: dashed 1px rgba(0, 0, 0, 0.5);
+    border-right: dashed 4px rgba(0, 0, 0, 0.5);
+
+    font-family: 'Droid Sans Mono', sans-serif;
+    font-size: 45px;
+    color: white;
 }
 
 .ace_scrollbar, .ace_print-margin-layer {
