@@ -30,5 +30,6 @@ define([
     $textPreview.click(function () {
         $editor.show();
         $textPreview.hide();
+        editor.focus();
     });
 });
